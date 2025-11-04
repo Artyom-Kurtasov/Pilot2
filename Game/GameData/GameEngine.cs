@@ -18,7 +18,7 @@ namespace Game.GameData
         private readonly IGameUI _gameUI;
         private readonly GameState _state;
 
-        public GameEngine(GameLogic gameLogic, IGameUI gameUI, IWordValidator wordValidator, IGameTextLogic textLogic, IGameTimer timer, GameState state)
+        public GameEngine(IGameLogic gameLogic, IGameUI gameUI, IWordValidator wordValidator, IGameTextLogic textLogic, IGameTimer timer, GameState state)
         {
             _timer = timer;
             _textLogic = textLogic;
