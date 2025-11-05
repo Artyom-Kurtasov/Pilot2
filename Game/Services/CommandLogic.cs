@@ -18,7 +18,7 @@ namespace Game.Services
             _state = state;
             _gameUI = gameUI;
         }
-        public void ShowAllWordsOfThisGame()
+        public void ShowAllWordsOfThisGame() // will be changed
         {
             if (_state.UsedWords.Count == 0) return;
 
