@@ -20,8 +20,8 @@ namespace Game.PlayerManagment
 
         public void SetPlayersNicknames()
         {
-            _gameState.Player1 = _nicknameService.GetValidNickname($"{Game.Properties.Resources.Player1Input}");
-            _gameState.Player2 = _nicknameService.GetValidNickname($"{Game.Properties.Resources.Player2Input}");
+            _gameState.Player1Nickname = _nicknameService.GetValidNickname($"{Game.Properties.Resources.Player1Input}");
+            _gameState.Player2Nickname = _nicknameService.GetValidNickname($"{Game.Properties.Resources.Player2Input}");
         }
     }
 }

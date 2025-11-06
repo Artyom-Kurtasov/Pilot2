@@ -4,6 +4,7 @@ global using System.Globalization;
 global using System.Linq;
 global using System.Text.RegularExpressions;
 global using System.Threading.Tasks;
+using Game.FileServices;
 using Game.GameData;
 using Game.GameLanguage;
 using Game.GameUI;
@@ -23,17 +24,19 @@ internal class Program
         IGameTimer timer = new GameTimer();
         IWordValidator wordValidator = new WordValidator(); 
         CommandValidator commandValidator = new CommandValidator();
+        PlayerState playerState = new PlayerState(); 
 
+        JsonServices jsonServices = new JsonServices(gameState);
         PlayerNicknameService playerNickname = new PlayerNicknameService(gameUI);
         PlayerManager playerManager = new PlayerManager(gameState, playerNickname);
         CommandLogic commandLogic = new CommandLogic(gameState, gameUI);
-        IGameLogic gameLogic = new GameLogic(gameState, commandLogic, commandValidator, wordValidator);
+        IGameLogic gameLogic = new GameLogic(gameState, commandLogic, commandValidator, wordValidator, playerState);
         IGameTextLogic textLogic = new GameTextLogic(gameState, gameUI);
         LanguageOptions languageOptions = new LanguageOptions();
         ILanguage languageService = new GameLanguage(gameUI, languageOptions);
         IGameEngine gameEngine = new GameEngine((GameLogic)gameLogic, gameUI, wordValidator, textLogic, timer, gameState);
         Rules rules = new Rules(gameUI);
-        IMenu menu = new Menu(gameUI, languageService, gameEngine, rules);
+        IMenu menu = new Menu(gameUI, languageService, gameEngine, rules, jsonServices);
 
         languageService.ChooseLanguage();
         playerManager.SetPlayersNicknames();

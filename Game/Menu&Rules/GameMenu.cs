@@ -1,21 +1,24 @@
 ﻿using GameRules;
 using Game.Interfaces;
+using Game.FileServices;
 
 namespace GameMenu
 {
     public class Menu : IMenu
     {
+        private JsonServices _JsonServices;
         private readonly Rules _rules;
         private readonly IGameUI _gameUI;
         private readonly ILanguage _language;
         private readonly IGameEngine _gameEngine;
 
-        public Menu(IGameUI gameUI, ILanguage language, IGameEngine gameEngine, Rules rules)
+        public Menu(IGameUI gameUI, ILanguage language, IGameEngine gameEngine, Rules rules, JsonServices jsonServices)
         {
             _rules = rules;
             _gameEngine = gameEngine;
             _language = language;
             _gameUI = gameUI;
+            _JsonServices = jsonServices;
         }
         public async Task DisplayMenuAsync()
         {
@@ -52,6 +55,7 @@ namespace GameMenu
             {
                 case "1":
                     await _gameEngine.StartGameAsync();
+                    _JsonServices.Write();
                     return false;
 
                 case "2":
