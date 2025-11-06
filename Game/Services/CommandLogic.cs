@@ -18,19 +18,20 @@ namespace Game.Services
             _state = state;
             _gameUI = gameUI;
         }
-        public void ShowAllWordsOfThisGame() // will be changed
+        public void ShowAllWordsOfThisGame()
         {
             if (_state.UsedWords.Count == 0) return;
 
-            _gameUI.PrintToUI($"\nПервоначальное слово: {_state.StartWord}");
-            _gameUI.PrintToUI("Слова первого игрока:                        Слова второго игрока:");
+            _gameUI.PrintToUI($"\nПервоначальное слово: {_state.StartWord}\n");
+            _gameUI.PrintToUI("Слова первого игрока".PadRight(26) + "Слова второго игрока");
+            _gameUI.PrintToUI(new string('─', 50));
 
-            for (int i = 1; i < _state.UsedWords.Count; i++)
+            for (int i = 1; i < _state.UsedWords.Count; i += 2)
             {
-                if (i % 2 == 0)
-                    _gameUI.PrintToUI($"                                             {_state.UsedWords[i]}");
-                else
-                    _gameUI.PrintToUI($"{_state.UsedWords[i]}");
+                string player1Word = _state.UsedWords[i].PadRight(25);
+                string player2Word = (i + 1 < _state.UsedWords.Count) ? _state.UsedWords[i + 1] : "-";
+
+                _gameUI.PrintToUI($"{player1Word} {player2Word}");
             }
         }
         public void ShowErrorMessage()

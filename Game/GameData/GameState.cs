@@ -8,6 +8,8 @@ namespace Game.GameData
 {
     public class GameState
     {
+        public string Player1 {  get; set; }
+        public string Player2 {  get; set; }
         public string? Input { get; set; }
         public Dictionary<char, int> CharOfStartWord = new();
         public string? StartWord { get; set; }

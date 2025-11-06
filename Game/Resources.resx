@@ -192,4 +192,13 @@
   <data name="InvalidValue" xml:space="preserve">
     <value>Некорректное значение!</value>
   </data>
+  <data name="Player1Input" xml:space="preserve">
+    <value>Первый игрок, введите свой никнейм: </value>
+  </data>
+  <data name="Player2Input" xml:space="preserve">
+    <value>Второй игрок, введите свой никнейм: </value>
+  </data>
+  <data name="NameCantBeNull" xml:space="preserve">
+    <value>Никнейм не может быть пустым!</value>
+  </data>
 </root>

@@ -8,9 +8,11 @@ using Game.GameData;
 using Game.GameLanguage;
 using Game.GameUI;
 using Game.Interfaces;
+using Game.PlayerManagment;
 using Game.Services;
 using GameMenu;
 using GameRules;
+using System.Numerics;
 
 internal class Program
 {
@@ -22,6 +24,8 @@ internal class Program
         IWordValidator wordValidator = new WordValidator(); 
         CommandValidator commandValidator = new CommandValidator();
 
+        PlayerNicknameService playerNickname = new PlayerNicknameService(gameUI);
+        PlayerManager playerManager = new PlayerManager(gameState, playerNickname);
         CommandLogic commandLogic = new CommandLogic(gameState, gameUI);
         IGameLogic gameLogic = new GameLogic(gameState, commandLogic, commandValidator, wordValidator);
         IGameTextLogic textLogic = new GameTextLogic(gameState, gameUI);
@@ -32,6 +36,7 @@ internal class Program
         IMenu menu = new Menu(gameUI, languageService, gameEngine, rules);
 
         languageService.ChooseLanguage();
+        playerManager.SetPlayersNicknames();
         await menu.DisplayMenuAsync();
     }
 }

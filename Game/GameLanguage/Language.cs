@@ -75,6 +75,7 @@ namespace Game.GameLanguage
                     DisplaySelectionMessage();
                     ConfigureCulture();
                     _gameUI.WaitForUser();
+                    _gameUI.ClearUI();
                     break;
                 }
 

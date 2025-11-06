@@ -142,6 +142,15 @@ namespace Game.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Никнейм не может быть пустым!.
+        /// </summary>
+        internal static string NameCantBeNull {
+            get {
+                return ResourceManager.GetString("NameCantBeNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на В первоначальном слове нет буквы {letterOfWord}! Попробуйте другое слово..
         /// </summary>
         internal static string NoLetter {
@@ -156,6 +165,24 @@ namespace Game.Properties {
         internal static string NonAlphabet {
             get {
                 return ResourceManager.GetString("NonAlphabet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Первый игрок, введите свой никнейм: .
+        /// </summary>
+        internal static string Player1Input {
+            get {
+                return ResourceManager.GetString("Player1Input", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Второй игрок, введите свой никнейм: .
+        /// </summary>
+        internal static string Player2Input {
+            get {
+                return ResourceManager.GetString("Player2Input", resourceCulture);
             }
         }
         

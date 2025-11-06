@@ -192,4 +192,13 @@
   <data name="InvalidValue" xml:space="preserve">
     <value>Invalid value!</value>
   </data>
+  <data name="Player1Input" xml:space="preserve">
+    <value>First player, enter a nickname: </value>
+  </data>
+  <data name="Player2Input" xml:space="preserve">
+    <value>Second player, enter a nickname: </value>
+  </data>
+  <data name="NameCantBeNull" xml:space="preserve">
+    <value>Nickname cannot be empty!</value>
+  </data>
 </root>
