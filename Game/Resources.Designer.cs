@@ -79,6 +79,15 @@ namespace Game.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Изменить никнеймы.
+        /// </summary>
+        internal static string ChangeNicknames {
+            get {
+                return ResourceManager.GetString("ChangeNicknames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Правильное слово! Ход переходит следующему игроку..
         /// </summary>
         internal static string CorrectWord {
@@ -102,6 +111,24 @@ namespace Game.Properties {
         internal static string FirstPlayer {
             get {
                 return ResourceManager.GetString("FirstPlayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Слова первого игрока.
+        /// </summary>
+        internal static string FirstPlayerWords {
+            get {
+                return ResourceManager.GetString("FirstPlayerWords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Неизвестная команда!.
+        /// </summary>
+        internal static string IncorrectCommand {
+            get {
+                return ResourceManager.GetString("IncorrectCommand", resourceCulture);
             }
         }
         
@@ -169,6 +196,24 @@ namespace Game.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Нужно хотя бы сыграть одну игру.
+        /// </summary>
+        internal static string NoOnePlayed {
+            get {
+                return ResourceManager.GetString("NoOnePlayed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на В этой игре еще не было слов!.
+        /// </summary>
+        internal static string NoWords {
+            get {
+                return ResourceManager.GetString("NoWords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Первый игрок, введите свой никнейм: .
         /// </summary>
         internal static string Player1Input {
@@ -232,11 +277,29 @@ namespace Game.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Ваши очки.
+        /// </summary>
+        internal static string Score {
+            get {
+                return ResourceManager.GetString("Score", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Второй игрок.
         /// </summary>
         internal static string SecondPlayer {
             get {
                 return ResourceManager.GetString("SecondPlayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Слова второго игрока.
+        /// </summary>
+        internal static string SecondPlayerWords {
+            get {
+                return ResourceManager.GetString("SecondPlayerWords", resourceCulture);
             }
         }
         
@@ -259,11 +322,29 @@ namespace Game.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Начальное слово не может быть командой!.
+        /// </summary>
+        internal static string StartWordCannotBeACommand {
+            get {
+                return ResourceManager.GetString("StartWordCannotBeACommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Время вышло! {nameOfCurrentPlayer} проиграл!.
         /// </summary>
         internal static string TimesUp {
             get {
                 return ResourceManager.GetString("TimesUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Очки всех игроков.
+        /// </summary>
+        internal static string TotalScore {
+            get {
+                return ResourceManager.GetString("TotalScore", resourceCulture);
             }
         }
         

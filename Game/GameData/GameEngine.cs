@@ -1,3 +1,4 @@
+using Game.FileServices;
 using Game.GameData;
 using Game.Interfaces;
 using Game.Services;
@@ -17,8 +18,11 @@ namespace Game.GameData
         private readonly IGameLogic _gameLogic;
         private readonly IGameUI _gameUI;
         private readonly GameState _state;
+        private readonly IJsonServices _jsonServices;
+        private readonly CommandValidator _commandValidator;
 
-        public GameEngine(IGameLogic gameLogic, IGameUI gameUI, IWordValidator wordValidator, IGameTextLogic textLogic, IGameTimer timer, GameState state)
+        public GameEngine(IGameLogic gameLogic, IGameUI gameUI, IWordValidator wordValidator, 
+            IGameTextLogic textLogic, IGameTimer timer, GameState state, IJsonServices jsonServices, CommandValidator commandValidator)
         {
             _timer = timer;
             _textLogic = textLogic;
@@ -26,16 +30,21 @@ namespace Game.GameData
             _state = state;
             _gameUI = gameUI;
             _gameLogic = gameLogic;
+            _jsonServices = jsonServices;
+            _commandValidator = commandValidator;
         }
 
         public async Task StartGameAsync()
         {
+            AppDomain.CurrentDomain.ProcessExit += _gameLogic.ExitMethod;
             _gameUI.ClearUI();
             _gameLogic.ClearUsedWords();
             SetStartWord();
             _gameLogic.BuildLetterDictionary();
             StartGameLoop();
+            AppDomain.CurrentDomain.ProcessExit -= _gameLogic.ExitMethod;
         }
+
 
         private void SetStartWord()
         {
@@ -52,8 +61,19 @@ namespace Game.GameData
                     break;
                 }
 
-                _gameUI.PrintToUI(_gameLogic.ValidateStartWord(input ?? "") ?? "");
-                _gameUI.PrintToUI($"\n{Game.Properties.Resources.PressAnyKey}");
+                _gameUI.ErrorColor();
+
+                if (_commandValidator.IncorrectCommand(input ?? ""))
+                {
+                    _gameUI.PrintToUI($"\n{Game.Properties.Resources.StartWordCannotBeACommand}");
+                }
+                else
+                {
+                    _gameUI.PrintToUI(_gameLogic.ValidateStartWord(input ?? "") ?? "");
+                }
+  
+                _gameUI.PrintToUI($"{Game.Properties.Resources.PressAnyKey}");
+                _gameUI.StandartColor();
                 _gameUI.WaitForUser();
                 _gameUI.ClearUI();
             }
@@ -63,6 +83,7 @@ namespace Game.GameData
         {
             while (true)
             {
+                _gameUI.StandartColor();
                 _gameLogic.UpdatePlayerState();
                 _textLogic.DisplayRoundInfo();
 
@@ -70,6 +91,7 @@ namespace Game.GameData
                 string? input = _gameUI.ReadUserInput();
                 _state.Input = input;
 
+                _gameUI.ErrorColor();
                 if (_gameLogic.ValidateCommands(input ?? ""))
                 {
                     continue;
@@ -78,6 +100,7 @@ namespace Game.GameData
                 if (_timer.IsTimerUp)
                 {
                     _gameLogic.DetermineWinner();
+                    _gameLogic.SetPoints();
                     _textLogic.DisplayEndGameMessage();
                     _gameUI.WaitForUser();
                     return;

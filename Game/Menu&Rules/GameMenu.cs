@@ -1,24 +1,27 @@
 ﻿using GameRules;
 using Game.Interfaces;
 using Game.FileServices;
+using Game.PlayerManagement;
 
 namespace GameMenu
 {
     public class Menu : IMenu
     {
-        private JsonServices _JsonServices;
+        private readonly PlayerManager _playerManager;
+        private IJsonServices _JsonServices;
         private readonly Rules _rules;
         private readonly IGameUI _gameUI;
         private readonly ILanguage _language;
         private readonly IGameEngine _gameEngine;
 
-        public Menu(IGameUI gameUI, ILanguage language, IGameEngine gameEngine, Rules rules, JsonServices jsonServices)
+        public Menu(IGameUI gameUI, ILanguage language, IGameEngine gameEngine, Rules rules, IJsonServices jsonServices, PlayerManager playerManager)
         {
             _rules = rules;
             _gameEngine = gameEngine;
             _language = language;
             _gameUI = gameUI;
             _JsonServices = jsonServices;
+            _playerManager = playerManager;
         }
         public async Task DisplayMenuAsync()
         {
@@ -39,7 +42,8 @@ namespace GameMenu
                 $"\n1. {Game.Properties.Resources.Start}" +
                 $"\n2. {Game.Properties.Resources.Rules}" +
                 $"\n3. {Game.Properties.Resources.ChangeLang}" +
-                $"\n4. {Game.Properties.Resources.Exit}" +
+                $"\n4. {Game.Properties.Resources.ChangeNicknames}" +
+                $"\n5. {Game.Properties.Resources.Exit}" +
                 $"\n{Game.Properties.Resources.YourChoice}: ");
         }
 
@@ -55,7 +59,7 @@ namespace GameMenu
             {
                 case "1":
                     await _gameEngine.StartGameAsync();
-                    _JsonServices.Write();
+                    _JsonServices.FillFile();
                     return false;
 
                 case "2":
@@ -67,6 +71,9 @@ namespace GameMenu
                     return false;
 
                 case "4":
+                    _playerManager.SetPlayersNicknames();
+                    return false;
+                case "5":
                     return true;
 
                 default:

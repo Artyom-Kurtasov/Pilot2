@@ -10,6 +10,9 @@ namespace Game.GameUI
     public class UI : IGameUI
     {
         public string? ReadUserInput() => Console.ReadLine()?.ToLower() ?? "";
+        public void ErrorColor() => Console.ForegroundColor = ConsoleColor.Red;
+        public void InformationColor() => Console.ForegroundColor = ConsoleColor.Magenta;
+        public void StandartColor() => Console.ResetColor();
         public void ClearUI() => Console.Clear();
         public void WaitForUser() => Console.ReadKey();
         public void PrintToUI(string content) => Console.WriteLine(content);

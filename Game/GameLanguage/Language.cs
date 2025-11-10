@@ -4,12 +4,12 @@ using Game.Interfaces;
 
 namespace Game.GameLanguage
 {
-    public class GameLanguage : ILanguage
+    public class Language : ILanguage
     {
         private readonly IGameUI _gameUI;
         private readonly LanguageOptions _langOptions;
 
-        public GameLanguage(IGameUI gameUI, LanguageOptions langOptions)
+        public Language(IGameUI gameUI, LanguageOptions langOptions)
         {
             _langOptions = langOptions;
             _gameUI = gameUI;

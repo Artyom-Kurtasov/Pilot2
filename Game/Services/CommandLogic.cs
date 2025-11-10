@@ -1,42 +1,124 @@
-﻿using Game.GameData;
+﻿using Game.FileServices;
+using Game.GameData;
 using Game.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Game.Services
 {
     public class CommandLogic
     {
-        private readonly GameState _state;
+        private readonly string _path;
+        private readonly GameState _gameState;
         private readonly IGameUI _gameUI;
 
         public CommandLogic(GameState state, IGameUI gameUI)
         {
-            _state = state;
+            _gameState = state;
             _gameUI = gameUI;
+            _path = GameConstants.PATH;
         }
         public void ShowAllWordsOfThisGame()
         {
-            if (_state.UsedWords.Count == 0) return;
-
-            _gameUI.PrintToUI($"\nПервоначальное слово: {_state.StartWord}\n");
-            _gameUI.PrintToUI("Слова первого игрока".PadRight(26) + "Слова второго игрока");
-            _gameUI.PrintToUI(new string('─', 50));
-
-            for (int i = 1; i < _state.UsedWords.Count; i += 2)
+            _gameUI.InformationColor();
+            if (_gameState.UsedWords.Count - 1 == 0)
             {
-                string player1Word = _state.UsedWords[i].PadRight(25);
-                string player2Word = (i + 1 < _state.UsedWords.Count) ? _state.UsedWords[i + 1] : "-";
-
-                _gameUI.PrintToUI($"{player1Word} {player2Word}");
+                _gameUI.PrintToUI("");
+                _gameUI.PrintToUI($"{Game.Properties.Resources.NoWords}");
             }
+            else
+            {
+                _gameUI.PrintToUI($"\n{Game.Properties.Resources.StartWord}: {_gameState.StartWord}\n");
+                _gameUI.PrintToUI($"{Game.Properties.Resources.FirstPlayerWords}".PadRight(26) + $"{Game.Properties.Resources.SecondPlayerWords}");
+                _gameUI.PrintToUI(new string('─', 50));
+
+                for (int i = 1; i < _gameState.UsedWords.Count; i += 2)
+                {
+                    string player1Word = _gameState.UsedWords[i].PadRight(25);
+                    string player2Word = (i + 1 < _gameState.UsedWords.Count) ? _gameState.UsedWords[i + 1] : "-";
+
+                    _gameUI.PrintToUI($"{player1Word} {player2Word}");
+                }
+            }
+
+            _gameUI.StandartColor();
         }
+
+        public void DisplayTotalScore()
+        {
+            _gameUI.InformationColor();
+            _gameUI.PrintToUI("");
+            _gameUI.PrintToUI($"{Game.Properties.Resources.TotalScore}");
+            _gameUI.PrintToUI(new string('-', 50));
+
+            var scores = GetScoreData();
+            foreach (var kvp in scores)
+            {
+                _gameUI.PrintToUI($"{kvp.Key}: {kvp.Value}");
+            }
+
+            _gameUI.StandartColor();
+        }
+
+        public void DisplayScore()
+        {
+            _gameUI.InformationColor();
+            _gameUI.PrintToUI("");
+            _gameUI.PrintToUI($"{Game.Properties.Resources.Score}");
+            _gameUI.PrintToUI(new string('-', 50));
+
+            var scores = GetCurrentPlayersScore();
+            foreach (var kvp in scores)
+            {
+                _gameUI.PrintToUI($"{kvp.Key}: {kvp.Value}");
+            }
+
+            _gameUI.StandartColor();
+        }
+
         public void ShowErrorMessage()
         {
-            _gameUI.PrintToUI("Incorrect command!"); // add to resources files!!!
+            _gameUI.ErrorColor();
+            _gameUI.PrintToUI($"\n{Game.Properties.Resources.IncorrectCommand}");
+            _gameUI.StandartColor();
         }
+
+        public Dictionary<string, int> GetScoreData()
+        {
+            var usersState = TryReadScoreFile();
+
+            usersState.TryAdd(_gameState.Player1Nickname, _gameState.Player1Score);
+            usersState.TryAdd(_gameState.Player2Nickname, _gameState.Player2Score);
+
+            return usersState;
+        }
+
+        private Dictionary<string, int> TryReadScoreFile()
+        {
+            if (!File.Exists(_path))
+                return new Dictionary<string, int>();
+
+            string json = File.ReadAllText(_path);
+            if (string.IsNullOrWhiteSpace(json))
+                return new Dictionary<string, int>();
+
+            var data = JsonSerializer.Deserialize<Dictionary<string, int>>(json);
+            return data ?? new Dictionary<string, int>();
+        }
+
+
+        private Dictionary<string, int> GetCurrentPlayersScore()
+        {
+            return new Dictionary<string, int>
+            {
+                { _gameState.Player1Nickname, _gameState.UsersState.GetValueOrDefault(_gameState.Player1Nickname, 0) },
+                { _gameState.Player2Nickname, _gameState.UsersState.GetValueOrDefault(_gameState.Player2Nickname, 0) }
+            };
+        }
+
     }
 }

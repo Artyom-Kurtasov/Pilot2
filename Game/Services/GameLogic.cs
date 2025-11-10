@@ -1,8 +1,10 @@
-﻿using Game.GameData;
+﻿using Game.FileServices;
+using Game.GameData;
 using Game.Interfaces;
-using Game.PlayerManagment;
+using Game.PlayerManagement;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
 using System.Text;
@@ -16,15 +18,16 @@ namespace Game.Services
         private readonly IWordValidator _wordValidator;
         private readonly CommandLogic _commandLogic;
         private readonly CommandValidator _commandValidator;
-        private readonly PlayerState _playerState;
+        private readonly IJsonServices _jsonServices;
 
-        public GameLogic(GameState state, CommandLogic commandLogic, CommandValidator commandValidator, IWordValidator wordValidator, PlayerState playerState)
+        public GameLogic(GameState state, CommandLogic commandLogic, CommandValidator commandValidator, IWordValidator wordValidator, IJsonServices jsonServices)
         {
-            _playerState = playerState;
             _gameState = state;
             _wordValidator = wordValidator;
             _commandLogic = commandLogic;
             _commandValidator = commandValidator;
+            _jsonServices = jsonServices;
+
         }
         public void SwitchPlayer() => _gameState.CurrentPlayer = !_gameState.CurrentPlayer;
 
@@ -94,9 +97,19 @@ namespace Game.Services
 
         public bool ValidateCommands(string input)
         {
-            if (_commandValidator.CommandForWords(input))
+            if (_commandValidator.IsAllWords(input))
             {
                 _commandLogic.ShowAllWordsOfThisGame();
+                return true;
+            }
+            else if (_commandValidator.IsTotalScore(input))
+            {
+                _commandLogic.DisplayTotalScore();
+                return true;
+            }
+            else if (_commandValidator.IsScore(input))
+            {
+                _commandLogic.DisplayScore();
                 return true;
             }
             else if (_commandValidator.IncorrectCommand(input))
@@ -105,6 +118,25 @@ namespace Game.Services
                 return true;
             }
                 return false;
+        }
+
+        public void SetPoints()
+        {
+            if (_gameState.Player1Nickname == _gameState.Winner) _gameState.Player1Score++;
+            else _gameState.Player2Score++;
+        }
+
+        public void ExitMethod(object sender, EventArgs e)
+        {
+            DetermineWinner();
+
+            if (_gameState.Winner == _gameState.Player1Nickname)
+                _gameState.Player1Score += 1;
+            else
+                _gameState.Player2Score += 1;
+
+            _jsonServices.FillFile();
+            System.Threading.Thread.Sleep(100);
         }
     }
 }

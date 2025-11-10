@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Game.Interfaces
 {
     public interface IGameLogic
@@ -16,6 +11,8 @@ namespace Game.Interfaces
         void ClearUsedWords();
         void UpdatePlayerState();
         void DetermineWinner();
+        void SetPoints();
         void BuildLetterDictionary();
+        void ExitMethod(object sender, EventArgs e);
     }
 }

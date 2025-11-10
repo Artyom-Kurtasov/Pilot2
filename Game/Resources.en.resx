@@ -201,4 +201,31 @@
   <data name="NameCantBeNull" xml:space="preserve">
     <value>Nickname cannot be empty!</value>
   </data>
+  <data name="ChangeNicknames" xml:space="preserve">
+    <value>Change nicknames</value>
+  </data>
+  <data name="FirstPlayerWords" xml:space="preserve">
+    <value>First Player's words</value>
+  </data>
+  <data name="SecondPlayerWords" xml:space="preserve">
+    <value>Second player's words</value>
+  </data>
+  <data name="IncorrectCommand" xml:space="preserve">
+    <value>Unknown command!</value>
+  </data>
+  <data name="NoWords" xml:space="preserve">
+    <value>There were no words in this game!</value>
+  </data>
+  <data name="TotalScore" xml:space="preserve">
+    <value>Total score</value>
+  </data>
+  <data name="Score" xml:space="preserve">
+    <value>Score</value>
+  </data>
+  <data name="StartWordCannotBeACommand" xml:space="preserve">
+    <value>A start word cannot be a command!</value>
+  </data>
+  <data name="NoOnePlayed" xml:space="preserve">
+    <value>You need to play at least one game!</value>
+  </data>
 </root>

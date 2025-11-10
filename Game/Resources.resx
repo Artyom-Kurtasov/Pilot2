@@ -201,4 +201,31 @@
   <data name="NameCantBeNull" xml:space="preserve">
     <value>Никнейм не может быть пустым!</value>
   </data>
+  <data name="ChangeNicknames" xml:space="preserve">
+    <value>Изменить никнеймы</value>
+  </data>
+  <data name="FirstPlayerWords" xml:space="preserve">
+    <value>Слова первого игрока</value>
+  </data>
+  <data name="SecondPlayerWords" xml:space="preserve">
+    <value>Слова второго игрока</value>
+  </data>
+  <data name="IncorrectCommand" xml:space="preserve">
+    <value>Неизвестная команда!</value>
+  </data>
+  <data name="NoWords" xml:space="preserve">
+    <value>В этой игре еще не было слов!</value>
+  </data>
+  <data name="TotalScore" xml:space="preserve">
+    <value>Очки всех игроков</value>
+  </data>
+  <data name="Score" xml:space="preserve">
+    <value>Ваши очки</value>
+  </data>
+  <data name="StartWordCannotBeACommand" xml:space="preserve">
+    <value>Начальное слово не может быть командой!</value>
+  </data>
+  <data name="NoOnePlayed" xml:space="preserve">
+    <value>Нужно хотя бы сыграть одну игру</value>
+  </data>
 </root>
