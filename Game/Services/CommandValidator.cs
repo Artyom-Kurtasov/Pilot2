@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Game.Services
+﻿namespace Game.Services
 {
     public class CommandValidator
     {
-        public bool IncorrectCommand(string input)
+        public bool UnknownCommand(string input)
         {
             return !string.IsNullOrEmpty(input) && input[0] == '/';
         }

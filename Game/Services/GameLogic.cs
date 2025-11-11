@@ -1,14 +1,5 @@
-﻿using Game.FileServices;
-using Game.GameData;
+﻿using Game.GameData;
 using Game.Interfaces;
-using Game.PlayerManagement;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Game.Services
 {
@@ -16,11 +7,11 @@ namespace Game.Services
     {
         private readonly GameState _gameState;
         private readonly IWordValidator _wordValidator;
-        private readonly CommandLogic _commandLogic;
+        private readonly ICommandLogic _commandLogic;
         private readonly CommandValidator _commandValidator;
         private readonly IJsonServices _jsonServices;
 
-        public GameLogic(GameState state, CommandLogic commandLogic, CommandValidator commandValidator, IWordValidator wordValidator, IJsonServices jsonServices)
+        public GameLogic(GameState state, ICommandLogic commandLogic, CommandValidator commandValidator, IWordValidator wordValidator, IJsonServices jsonServices)
         {
             _gameState = state;
             _wordValidator = wordValidator;
@@ -112,7 +103,7 @@ namespace Game.Services
                 _commandLogic.DisplayScore();
                 return true;
             }
-            else if (_commandValidator.IncorrectCommand(input))
+            else if (_commandValidator.UnknownCommand(input))
             {
                 _commandLogic.ShowErrorMessage();
                 return true;

@@ -1,5 +1,4 @@
-﻿
-namespace Game.Interfaces
+﻿namespace Game.Interfaces
 {
     public interface IGameLogic
     {

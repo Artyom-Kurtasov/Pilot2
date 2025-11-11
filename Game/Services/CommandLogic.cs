@@ -1,16 +1,10 @@
-﻿using Game.FileServices;
-using Game.GameData;
+﻿using Game.GameData;
 using Game.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Game.Services
 {
-    public class CommandLogic
+    public class CommandLogic : ICommandLogic
     {
         private readonly string _path;
         private readonly GameState _gameState;
@@ -87,7 +81,7 @@ namespace Game.Services
             _gameUI.StandartColor();
         }
 
-        public Dictionary<string, int> GetScoreData()
+        private Dictionary<string, int> GetScoreData()
         {
             var usersState = TryReadScoreFile();
 

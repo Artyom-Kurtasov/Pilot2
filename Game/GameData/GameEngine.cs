@@ -1,12 +1,5 @@
-using Game.FileServices;
-using Game.GameData;
 using Game.Interfaces;
 using Game.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Game.GameData
 {
@@ -63,7 +56,7 @@ namespace Game.GameData
 
                 _gameUI.ErrorColor();
 
-                if (_commandValidator.IncorrectCommand(input ?? ""))
+                if (_commandValidator.UnknownCommand(input ?? ""))
                 {
                     _gameUI.PrintToUI($"\n{Game.Properties.Resources.StartWordCannotBeACommand}");
                 }
@@ -83,7 +76,6 @@ namespace Game.GameData
         {
             while (true)
             {
-                _gameUI.StandartColor();
                 _gameLogic.UpdatePlayerState();
                 _textLogic.DisplayRoundInfo();
 
@@ -91,7 +83,6 @@ namespace Game.GameData
                 string? input = _gameUI.ReadUserInput();
                 _state.Input = input;
 
-                _gameUI.ErrorColor();
                 if (_gameLogic.ValidateCommands(input ?? ""))
                 {
                     continue;

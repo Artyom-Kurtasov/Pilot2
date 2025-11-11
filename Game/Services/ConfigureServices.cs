@@ -25,7 +25,7 @@ namespace Game.Services
             services.AddScoped<IGameTimer, GameTimer>();
             services.AddScoped<IWordValidator, WordValidator>();
             services.AddScoped<CommandValidator>();
-            services.AddScoped<CommandLogic>();
+            services.AddScoped<ICommandLogic, CommandLogic>();
             services.AddScoped<Rules>();
 
             services.AddScoped<GameState>();
